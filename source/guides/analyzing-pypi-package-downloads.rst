@@ -1,3 +1,5 @@
+.. _analyzing-pypi-package-downloads:
+
 ================================
 Analyzing PyPI package downloads
 ================================
@@ -6,9 +8,6 @@ This section covers how to use the public PyPI download statistics dataset
 to learn more about downloads of a package (or packages) hosted on PyPI. For
 example, you can use it to discover the distribution of Python versions used to
 download a package.
-
-.. contents:: Contents
-   :local:
 
 
 Background
@@ -35,7 +34,7 @@ PyPI does not display download statistics for a number of reasons: [#]_
   doesn't mean it's good; Similarly just because a project hasn't been
   downloaded a lot doesn't mean it's bad!
 
-In short, because it's value is low for various reasons, and the tradeoffs
+In short, because its value is low for various reasons, and the tradeoffs
 required to make it work are high, it has been not an effective use of
 limited resources.
 
@@ -94,7 +93,7 @@ Useful queries
 
 Run queries in the `BigQuery web UI`_ by clicking the "Compose query" button.
 
-Note that the rows are stored in a partitioned, which helps
+Note that the rows are stored in a partitioned table, which helps
 limit the cost of queries. These example queries analyze downloads from
 recent history by filtering on the ``timestamp`` column.
 
@@ -104,7 +103,7 @@ Counting package downloads
 The following query counts the total number of downloads for the project
 "pytest".
 
-::
+.. code-block:: sql
 
     #standardSQL
     SELECT COUNT(*) AS num_downloads
@@ -121,10 +120,10 @@ The following query counts the total number of downloads for the project
 | 26190085      |
 +---------------+
 
-To only count downloads from pip, filter on the ``details.installer.name``
+To count downloads from pip only, filter on the ``details.installer.name``
 column.
 
-::
+.. code-block:: sql
 
     #standardSQL
     SELECT COUNT(*) AS num_downloads
@@ -148,7 +147,7 @@ Package downloads over time
 To group by monthly downloads, use the ``TIMESTAMP_TRUNC`` function. Also
 filtering by this column reduces corresponding costs.
 
-::
+.. code-block:: sql
 
     #standardSQL
     SELECT
@@ -186,7 +185,7 @@ Python versions over time
 Extract the Python version from the ``details.python`` column. Warning: This
 query processes over 500 GB of data.
 
-::
+.. code-block:: sql
 
     #standardSQL
     SELECT
@@ -216,6 +215,43 @@ query processes over 500 GB of data.
 +--------+---------------+
 | 3.5    | 1894153540    |
 +--------+---------------+
+
+
+Getting absolute links to artifacts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It's sometimes helpful to be able to get the absolute links to download
+artifacts from PyPI based on their hashes, e.g. if a particular project or
+release has been deleted from PyPI. The metadata table includes the ``path``
+column, which includes the hash and artifact filename.
+
+.. note::
+   The URL generated here is not guaranteed to be stable, but currently aligns with the URL where PyPI artifacts are hosted.
+
+.. code-block:: sql
+
+    SELECT
+      CONCAT('https://files.pythonhosted.org/packages', path) as url
+    FROM
+      `bigquery-public-data.pypi.distribution_metadata`
+    WHERE
+      filename LIKE 'sampleproject%'
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| url                                                                                                                                                               |
++===================================================================================================================================================================+
+| https://files.pythonhosted.org/packages/eb/45/79be82bdeafcecb9dca474cad4003e32ef8e4a0dec6abbd4145ccb02abe1/sampleproject-1.2.0.tar.gz                             |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| https://files.pythonhosted.org/packages/56/0a/178e8bbb585ec5b13af42dae48b1d7425d6575b3ff9b02e5ec475e38e1d6/sampleproject_nomura-1.2.0-py2.py3-none-any.whl        |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| https://files.pythonhosted.org/packages/63/88/3200eeaf22571f18d2c41e288862502e33365ccbdc12b892db23f51f8e70/sampleproject_nomura-1.2.0.tar.gz                      |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| https://files.pythonhosted.org/packages/21/e9/2743311822e71c0756394b6c5ab15cb64ca66c78c6c6a5cd872c9ed33154/sampleproject_doubleyoung18-1.3.0-py2.py3-none-any.whl |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| https://files.pythonhosted.org/packages/6f/5b/2f3fe94e1c02816fe23c7ceee5292fb186912929e1972eee7fb729fa27af/sampleproject-1.3.1.tar.gz                             |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
 
 Caveats
 =======
@@ -274,7 +310,7 @@ Install `pypinfo`_ using pip.
 
 .. code-block:: bash
 
-    python -m pip install pypinfo
+    python3 -m pip install pypinfo
 
 Usage:
 
@@ -306,7 +342,7 @@ References
 .. _public PyPI download statistics dataset: https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=pypi&page=dataset
 .. _Google BigQuery: https://cloud.google.com/bigquery
 .. _BigQuery web UI: https://console.cloud.google.com/bigquery
-.. _pypinfo: https://github.com/ofek/pypinfo/blob/master/README.rst
+.. _pypinfo: https://github.com/ofek/pypinfo
 .. _google-cloud-bigquery: https://cloud.google.com/bigquery/docs/reference/libraries
 .. _pandas-gbq: https://pandas-gbq.readthedocs.io/en/latest/
 .. _Pandas: https://pandas.pydata.org/

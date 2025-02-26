@@ -32,8 +32,11 @@ Documentation types
 ===================
 
 This project consists of four distinct documentation types with specific
-purposes. When proposing new additions to the project please pick the
+purposes. The project aspires to follow the `Diátaxis process`_
+for creating quality documentation. When proposing new additions to the project please pick the
 appropriate documentation type.
+
+.. _Diátaxis process: https://diataxis.fr/
 
 Tutorials
 ---------
@@ -42,7 +45,7 @@ Tutorials are focused on teaching the reader new concepts by accomplishing a
 goal. They are opinionated step-by-step guides. They do not include extraneous
 warnings or information. `example tutorial-style document`_.
 
-.. _example tutorial-style document: https://docs.djangoproject.com/en/1.11/intro/
+.. _example tutorial-style document: https://docs.djangoproject.com/en/dev/intro/
 
 Guides
 ------
@@ -63,7 +66,7 @@ document <discussions/install-requires-vs-requirements>`.
 Specifications
 --------------
 
-Specifications are reference documention focused on comprehensively documenting
+Specifications are reference documentation focused on comprehensively documenting
 an agreed-upon interface for interoperability between packaging tools.
 :doc:`example specification-style document <specifications/core-metadata>`.
 
@@ -75,7 +78,7 @@ We use `Weblate`_ to manage translations of this project.
 Please visit the `packaging.python.org`_ project on Weblate to contribute.
 
 If you are experiencing issues while you are working on translations,
-please open an issue on `Github`_.
+please open an issue on `GitHub`_.
 
 .. tip::
 
@@ -83,7 +86,7 @@ please open an issue on `Github`_.
 
 .. _Weblate: https://weblate.org/
 .. _packaging.python.org: https://hosted.weblate.org/projects/pypa/packaging-python-org/
-.. _Github: https://github.com/pypa/packaging.python.org/issues
+.. _GitHub: https://github.com/pypa/packaging.python.org/issues
 .. _reStructuredText syntax: https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
 
 Adding a language
@@ -131,11 +134,11 @@ need:
 
       python -m pip install --user nox
 
-2. Python 3.8. Our build scripts are usually tested with Python 3.8 only.
+2. Python 3.11. Our build scripts are usually tested with Python 3.11 only.
    See the :doc:`Hitchhiker's Guide to Python installation instructions <python-guide:starting/installation>`
-   to install Python 3.8 on your operating system.
+   to install Python 3.11 on your operating system.
 
-To build the guide, run the following bash command in the source folder:
+To build the guide, run the following shell command in the project's root folder:
 
 .. code-block:: bash
 
