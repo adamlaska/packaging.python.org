@@ -453,8 +453,6 @@ See :ref:`pylock-packages-vcs-subdirectory`.
 - **Required?**: if :ref:`pylock-packages-archive-path` is not specified
 - **Inspiration**: :ref:`direct-url-data-structure-archive`
 - The URL_ to the archive.
-- If :ref:`pylock-packages-archive-path` is also specified, the filename as
-  specified by this key takes precedence.
 
 
 .. _pylock-packages-archive-path:
@@ -469,6 +467,8 @@ See :ref:`pylock-packages-vcs-subdirectory`.
 - If a relative path is used it MUST be relative to the location of this file.
 - If the path is relative it MAY use POSIX-style path separators explicitly
   for portability.
+- If :ref:`pylock-packages-archive-url` is also specified, the filename as
+  specified by this key takes precedence.
 
 
 .. _pylock-packages-archive-size:
