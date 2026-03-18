@@ -637,7 +637,7 @@ See :ref:`pylock-packages-archive-hashes`.
 - **Inspiration**: PDM_, Poetry_, uv_
 - The file name of the :ref:`binary-distribution-format` file.
 - If specified, this key's value takes precedence over the file name found in
-  either :ref:`pylock-packages-sdist-url` or :ref:`pylock-packages-sdist-path`.
+  either :ref:`pylock-packages-wheels-url` or :ref:`pylock-packages-wheels-path`.
 
 
 .. _pylock-packages-wheels-upload-time:
