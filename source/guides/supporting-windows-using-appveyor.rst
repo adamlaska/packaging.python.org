@@ -21,7 +21,7 @@ can be a challenge, because setting up a suitable Windows test environment is
 non-trivial, and may require buying software licenses.
 
 The Appveyor service is a continuous integration service, much like the
-better-known `Travis`_ service that is commonly used for testing by projects
+better-known `GitHub Actions`_ service that is commonly used for testing by projects
 hosted on `GitHub`_. However, unlike Travis, the build workers on Appveyor are
 Windows hosts and have the necessary compilers installed to build Python
 extensions.
@@ -237,6 +237,6 @@ For reference, the SDK setup support script is listed here:
    :linenos:
 
 .. _Appveyor: https://www.appveyor.com/
-.. _Travis: https://travis-ci.com/
 .. _GitHub: https://github.com
+.. _GitHub Actions: https://docs.github.com/en/actions
 .. _Bitbucket: https://bitbucket.org/
